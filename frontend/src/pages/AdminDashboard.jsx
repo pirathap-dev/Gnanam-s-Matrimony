@@ -25,7 +25,7 @@ const AdminDashboard = () => {
           navigate('/admin/login');
           return;
         }
-        const response = await axios.get('http://localhost:5000/api/submissions', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/submissions`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSubmissions(response.data.data);
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   const updateStatus = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.patch(`http://localhost:5000/api/submissions/${id}/status`, { status: newStatus }, {
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/submissions/${id}/status`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSubmissions(submissions.map(sub => sub._id === id ? { ...sub, status: newStatus } : sub));
@@ -76,14 +76,14 @@ const AdminDashboard = () => {
 
     try {
       // First verify the admin password by attempting a login
-      await axios.post('http://localhost:5000/api/auth/login', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         username: 'admin', // We just need to verify password
         password: deletePassword,
       });
 
       // Password verified, proceed with deletion
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://localhost:5000/api/submissions/${deleteConfirm._id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/submissions/${deleteConfirm._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

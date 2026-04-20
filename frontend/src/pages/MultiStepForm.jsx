@@ -59,7 +59,7 @@ const MultiStepForm = () => {
         location: formData.preferences_location
       }));
 
-      await axios.post('http://localhost:5000/api/submissions', data, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/submissions`, data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
