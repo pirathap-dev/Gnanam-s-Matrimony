@@ -16,6 +16,7 @@ const AdminLogin = () => {
         password
       });
       localStorage.setItem('adminToken', response.data.token);
+      localStorage.setItem('adminUsername', username);
       toast.success('Successfully logged in');
       navigate('/admin/dashboard');
     } catch (err) {

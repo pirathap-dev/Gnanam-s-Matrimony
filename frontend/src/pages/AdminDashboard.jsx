@@ -76,8 +76,9 @@ const AdminDashboard = () => {
 
     try {
       // First verify the admin password by attempting a login
+      const storedUsername = localStorage.getItem('adminUsername') || 'admin';
       await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        username: 'admin', // We just need to verify password
+        username: storedUsername,
         password: deletePassword,
       });
 
